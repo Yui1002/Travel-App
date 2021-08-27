@@ -7,7 +7,7 @@ class App extends Component {
         return (
             <React.Fragment>
                 <Distance />
-                {/* <Climate /> */}
+                <Climate />
             </React.Fragment>
         )
     }

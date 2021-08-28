@@ -7,7 +7,10 @@ class Controller {
 
     async getCountries(req) {
         return await this.Model.getCountriesBasedOnClimate(req)
-        
+    }
+
+    async getCountriesBasedOnBudget(req) {
+        return await this.Model.getCountriesBasedOnBudget(req)
     }
 }
 

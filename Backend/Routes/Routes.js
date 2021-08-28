@@ -6,8 +6,13 @@ class Routes {
     }
 
     applyRouting(app) {
-        app.post('/getCountriesBasedOnClimate', async(req, res) => {
+        app.post('/getCountriesBasedOnClimate', async (req, res) => {
             const response = await this.Controller.getCountries(req.body)
+            res.send(response)
+        })
+
+        app.post('/getCountriesBasedOnBudget', async (req, res) => {
+            const response = await this.Controller.getCountriesBasedOnBudget(req.body);
             res.send(response)
         })
     }

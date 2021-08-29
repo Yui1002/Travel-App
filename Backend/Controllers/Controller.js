@@ -12,6 +12,10 @@ class Controller {
     async getCountriesBasedOnBudget(req) {
         return await this.Model.getCountriesBasedOnBudget(req)
     }
+
+    async getCountriesBasedOnActivities(req) {
+        return await this.Model.getCountriesBasedOnActivities(req)
+    }
 }
 
 export default Controller

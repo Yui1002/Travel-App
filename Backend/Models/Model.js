@@ -44,6 +44,38 @@ class Model {
             console.log(error)
         }
     }
+
+    async getCountriesBasedOnActivities(req) {
+        const con = await mysql.createConnection(db_setting);
+        try {
+            const param = req.val
+            console.log(param)
+            if(param === 'Safari') {
+                console.log('okok')
+                const sql = 'select name from costOfLivingIndex where activities1=?;'
+                const [rows, fields] = await con.query(sql, [param])
+                return rows
+            } else if(param === 'Mountain sports') {
+                const sql = "select name from costOfLivingIndex where activities1=? OR activities2=?"
+                const [rows, fields] = await con.query(sql, [param, param]);
+                return rows
+            } else if(param === 'Water sports') {
+                const sql = "select name from costOfLivingIndex where activities1=? OR activities2=?"
+                const [rows, fields] = await con.query(sql, [param, param]);
+                return rows
+            } else if(param === 'Winter sports') {
+                const sql = "select name from costOfLivingIndex where activities1=? OR activities2=?"
+                const [rows, fields] = await con.query(sql, [param, param]);
+                return rows
+            } else if(param === 'Historical sites') {
+                const sql = "select name from costOfLivingIndex where activities1=? OR activities2=?"
+                const [rows, fields] = await con.query(sql, [param, param]);
+                return rows
+            }
+        } catch(error) {
+            console.log(error)
+        }
+    }
 }
 
 export default Model

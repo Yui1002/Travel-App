@@ -15,6 +15,11 @@ class Routes {
             const response = await this.Controller.getCountriesBasedOnBudget(req.body);
             res.send(response)
         })
+
+        app.post('/getCountriesBasedOnActivities', async (req, res) => {
+            const response = await this.Controller.getCountriesBasedOnActivities(req.body);
+            res.send(response)
+        })
     }
 }  
 

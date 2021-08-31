@@ -4,7 +4,7 @@ import Distance from "./components/Distance/Distance";
 import Climate from "./components/Climate/Climate";
 import Budget from "./components/Budget/Budget";
 import Activities from "./components/Activities/Activities";
-import CountriesByDistance from "./components/Distance/Countries";
+import CountryList from './components/CountryList/CountryList'
 import "./App.css";
 
 const App = () => {
@@ -19,15 +19,7 @@ const App = () => {
         <Budget countries={countries} setCountries={setCountries} />
         <Activities countries={countries} setCountries={setCountries} />
       </div>
-      <div className="main-lower">
-        <ul className="app-list-container">
-          {countries.length > 0 ? (
-            countries.map((data) => <CountriesByDistance data={data} />)
-          ) : (
-            <></>
-          )}
-        </ul>
-      </div>
+      <CountryList countries={countries}/>
     </React.Fragment>
   );
 };

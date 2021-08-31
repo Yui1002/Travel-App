@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Countries from "./Countries";
 import "./Activities.css";
 
 const Activities = ({ countries, setCountries }) => {

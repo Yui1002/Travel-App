@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Countries from "./Countries";
-import "./Distance.css";
+import './Distance.css'
 
 const Distance = ({countries, setCountries}) => {
   const [latitude, setLatitude] = useState();

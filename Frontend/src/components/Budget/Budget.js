@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Countries from "../Budget/Countries";
 import "./Budget.css";
 
 const Budget = ({ countries, setCountries }) => {

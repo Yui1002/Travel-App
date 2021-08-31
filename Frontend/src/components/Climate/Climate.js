@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Countries from "./Countries";
 import "./Climate.css";
 
 const Climate = ({ countries, setCountries }) => {

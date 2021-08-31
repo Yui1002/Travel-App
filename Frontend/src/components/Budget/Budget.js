@@ -2,14 +2,18 @@ import React, { useState } from "react";
 import Countries from "../Budget/Countries";
 import "./Budget.css";
 
-const Budget = ({ countriesByBudget, setCountriesByBudget }) => {
+const Budget = ({ countries, setCountries }) => {
   const [costs, setCosts] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(`submitted ${costs}`);
 
-    setCountriesByBudget(await getCountries());
+    if(countries.length !== 0) {
+      setCountries(countries.splice(0))
+    }
+
+    setCountries(await getCountries());
   };
 
   const getCountries = async () => {
@@ -27,12 +31,10 @@ const Budget = ({ countriesByBudget, setCountriesByBudget }) => {
     const data = await response.json();
 
     for (let i = 0; i < data.length; i++) {
-      setCountriesByBudget(
-        countriesByBudget.push([data[i].name, data[i].countrycode])
-      );
+      setCountries(countries.push([data[i].name, data[i].countrycode]));
     }
 
-    return countriesByBudget;
+    return countries;
   };
 
   const handleChange = (e) => {

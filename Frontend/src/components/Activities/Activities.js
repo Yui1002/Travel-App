@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Countries from "./Countries";
 import "./Activities.css";
 
-const Activities = ({ countriesByActivities, setCountriesByActivities }) => {
+const Activities = ({ countries, setCountries }) => {
   const [activities, setActivities] = useState();
 
   const getCountries = async () => {
@@ -20,19 +20,23 @@ const Activities = ({ countriesByActivities, setCountriesByActivities }) => {
     const data = await response.json();
 
     for (let i = 0; i < data.length; i++) {
-      setCountriesByActivities(
-        countriesByActivities.push([data[i].name, data[i].countrycode])
+      setCountries(
+        countries.push([data[i].name, data[i].countrycode])
       );
     }
 
-    return countriesByActivities;
+    return countries;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(`submitted ${activities}`);
 
-    setCountriesByActivities(await getCountries());
+    if(countries.length !== 0) {
+      setCountries(countries.splice(0))
+    }
+
+    setCountries(await getCountries());
   };
 
   const handleChange = (e) => {

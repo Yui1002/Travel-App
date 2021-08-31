@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Countries from "./Countries";
 import "./Climate.css";
 
-const Climate = ({ countriesByClimate, setCountriesByClimate }) => {
+const Climate = ({ countries, setCountries }) => {
   const [climate, setClimate] = useState();
 
   const getCountries = async () => {
@@ -19,19 +19,21 @@ const Climate = ({ countriesByClimate, setCountriesByClimate }) => {
     const data = await response.json();
 
     for (let i = 0; i < data.length; i++) {
-      setCountriesByClimate(
-        countriesByClimate.push([data[i].name, data[i].countrycode])
-      );
+      setCountries(countries.push([data[i].name, data[i].countrycode]));
     }
 
-    return countriesByClimate;
+    return countries;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(`submitted: ${climate}`);
 
-    setCountriesByClimate(await getCountries());
+    if(countries.length !== 0) {
+      setCountries(countries.splice(0))
+    }
+
+    setCountries(await getCountries());
   };
 
   const handleChange = (e) => {

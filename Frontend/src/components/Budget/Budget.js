@@ -1,67 +1,70 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
+import Countries from "../Budget/Countries";
+import "./Budget.css";
 
-const Budget = () => {
-    const [costs, setCosts] = useState();
-    const [countries, setCountries] = useState([])
+const Budget = ({ countriesByBudget, setCountriesByBudget }) => {
+  const [costs, setCosts] = useState();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        console.log(`submitted ${costs}`)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(`submitted ${costs}`);
 
-        setCountries(await getCountries())
+    setCountriesByBudget(await getCountries());
+  };
+
+  const getCountries = async () => {
+    const url = "http://localhost:3000/getCountriesBasedOnBudget";
+    const param = { val: costs };
+
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(param),
+    });
+    const data = await response.json();
+
+    for (let i = 0; i < data.length; i++) {
+      setCountriesByBudget(
+        countriesByBudget.push([data[i].name, data[i].countrycode])
+      );
     }
 
-    const getCountries = async () => {
-        const url = '/getCountriesBasedOnBudget';
-        const param = {val: costs};
-        const setting = {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(param)
-        }
+    return countriesByBudget;
+  };
 
-        const response = await fetch(`http://localhost:3000${url}`, setting);
-        const data = await response.json();
+  const handleChange = (e) => {
+    setCosts(e.target.value);
+  };
 
-        for(let i = 0; i < data.length; i++) {
-            setCountries(countries.push(data[i].name))
-        }
-        
-        return countries
-    }
+  return (
+    <div className="budget-container">
+      <div className="budget-title">
+        <h2 budget-title-subtitle>Budget</h2>
+        <p className="budget-title-subtitle">
+          Get the list of countries by budget. This is based on the cost of
+          living index
+        </p>
+      </div>
+      <div className="budget-body">
+        <form onSubmit={handleSubmit}>
+          <select onChange={handleChange} className="budget-select">
+            <option value="select">Select</option>
+            <option value="expensive">Expensive</option>
+            <option value="middle">Middle</option>
+            <option value="cheap">Cheap</option>
+          </select>
+          <input
+            type="submit"
+            value="Submit"
+            className="budget-btn-submit"
+          ></input>
+        </form>
+      </div>
+    </div>
+  );
+};
 
-    const handleChange = (e) => {
-        setCosts(e.target.value)
-    }
-
-    return (
-        <div>
-            <h1>Budget</h1>
-            <p>Cost of living</p>
-            <form onSubmit={handleSubmit}>
-                <select onChange={handleChange}>
-                    <option value="select">Select</option>
-                    <option value="expensive">Expensive</option>
-                    <option value="middle">Middle</option>
-                    <option value="cheap">Cheap</option>
-                </select>
-                <input type="submit" value="Submit"></input>
-            </form>
-            <div>
-                <ul>
-                    {countries.length > 0 ? 
-                    countries.map((data) => {
-                    return <li key={Math.random()}>{data}</li>
-                    })
-                    : <div>Loading...</div>}
-                </ul>
-            </div>
-        </div>
-
-    );
-}
- 
 export default Budget;

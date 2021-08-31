@@ -1,66 +1,70 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
+import Countries from "./Countries";
+import "./Activities.css";
 
-const Activities = () => {
-    const [activities, setActivities] = useState();
-    const [countries, setCountries] = useState([]);
+const Activities = ({ countriesByActivities, setCountriesByActivities }) => {
+  const [activities, setActivities] = useState();
 
-    const getCountries = async () => {
-        const url = '/getCountriesBasedOnActivities';
-        const param = { val: activities };
+  const getCountries = async () => {
+    const url = "http://localhost:3000/getCountriesBasedOnActivities";
+    const param = { val: activities };
 
-        const response = await fetch(`http://localhost:3000${url}`, {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(param)
-        })
-        const data = await response.json();
-        
-        for(let i = 0; i < data.length; i++) {
-            setCountries(countries.push(data[i].name))
-        }
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(param),
+    });
+    const data = await response.json();
 
-        return countries
+    for (let i = 0; i < data.length; i++) {
+      setCountriesByActivities(
+        countriesByActivities.push([data[i].name, data[i].countrycode])
+      );
     }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log(`submitted ${activities}`);
+    return countriesByActivities;
+  };
 
-        setCountries(await getCountries()) 
-    }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(`submitted ${activities}`);
 
-    const handleChange = (e) => {
-        setActivities(e.target.value)
-    }
-    return (
-        <div>
-            <h1>Activities</h1>
-            <p>What type of activities do you want to do?</p>
-            <form onSubmit={handleSubmit}>
-                <select onChange={handleChange}>
-                    <option value="select">Select</option>
-                    <option value="Safari">Safari</option>
-                    <option value="Mountain sports">Mountain sports</option>
-                    <option value="Water sports">Water sports</option>
-                    <option value="Winter sports">Winter sports</option>
-                    <option value="Historical sites">Historical sites</option>
-                </select>
-                <input type="submit" value="Submit"></input>
-            </form>
-            <div>
-                <ul>
-                    {countries.length > 0 ? 
-                    countries.map((data) => {
-                    return <li key={Math.random()}>{data}</li>
-                    })
-                    : <div>Loading...</div>}
-                </ul>
-            </div>
-        </div>
-    );
-}
- 
+    setCountriesByActivities(await getCountries());
+  };
+
+  const handleChange = (e) => {
+    setActivities(e.target.value);
+  };
+  return (
+    <div className="activities-container">
+      <div className="acitivities-title">
+        <h2>Activities</h2>
+        <p className="activities-title-subtitle">
+          Get the list of countries based on activities
+        </p>
+      </div>
+      <div className="activities-body">
+        <form onSubmit={handleSubmit}>
+          <select onChange={handleChange} className="activities-select">
+            <option value="select">Select</option>
+            <option value="Safari">Safari</option>
+            <option value="Mountain sports">Mountain sports</option>
+            <option value="Water sports">Water sports</option>
+            <option value="Winter sports">Winter sports</option>
+            <option value="Historical sites">Historical sites</option>
+          </select>
+          <input
+            type="submit"
+            value="Submit"
+            className="activities-btn-submit"
+          ></input>
+        </form>
+      </div>
+    </div>
+  );
+};
+
 export default Activities;

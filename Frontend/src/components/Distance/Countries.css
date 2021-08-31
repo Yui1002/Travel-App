@@ -1,0 +1,18 @@
+.country-item {
+  width: 120px;
+  height: 90px;
+  border: 2px solid #183153;
+  border-radius: 0.5em;
+  margin-top: 60px;
+  margin-bottom: 10px;
+  background-color: rgb(243, 239, 239);
+}
+
+.country-item-name {
+  text-align: center;
+}
+
+.country-item-image {
+  display: block;
+  margin: 0 auto;
+}

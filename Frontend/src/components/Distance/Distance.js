@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './Distance.css'
 
-const Distance = ({countries, setCountries}) => {
+const Distance = ({countriesDistance, setCountriesDistance}) => {
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
   const [distance, setDistance] = useState();
@@ -34,10 +34,10 @@ const Distance = ({countries, setCountries}) => {
     console.log(data);
 
     for (let i = 0; i < data.length; i++) {
-      setCountries(countries.push([data[i].name, data[i].countrycode]));
+      setCountriesDistance(setCountriesDistance.push([data[i].name, data[i].countrycode]));
     }
 
-    return countries;
+    return countriesDistance;
   };
 
   const handleChange = (event) => {
@@ -47,12 +47,12 @@ const Distance = ({countries, setCountries}) => {
   const handleSubmit = async (event) => {
     console.log(`submitted: You chose ${distance}km `);
     
-    if(countries.length !== 0) {
-      setCountries(countries.splice(0))
+    if(countriesDistance.length !== 0) {
+      setCountriesDistance(countriesDistance.splice(0))
     }
     event.preventDefault();
 
-    setCountries(await getCountries());
+    setCountriesDistance(await getCountries());
   };
 
   return (

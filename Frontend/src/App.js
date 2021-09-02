@@ -4,7 +4,8 @@ import Distance from "./components/Distance/Distance";
 import Climate from "./components/Climate/Climate";
 import Budget from "./components/Budget/Budget";
 import Activities from "./components/Activities/Activities";
-import CountryList from './components/CountryList/CountryList'
+import CountryList from "./components/CountryList/CountryList";
+import Priority from "./components/Priority/Priority";
 import "./App.css";
 
 const App = () => {
@@ -19,7 +20,12 @@ const App = () => {
         <Budget countries={countries} setCountries={setCountries} />
         <Activities countries={countries} setCountries={setCountries} />
       </div>
-      <CountryList countries={countries}/>
+      <div className="country-list">
+        <CountryList countries={countries} />
+      </div>
+      <div className="priority">
+        <Priority />
+      </div>
     </React.Fragment>
   );
 };

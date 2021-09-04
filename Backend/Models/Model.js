@@ -157,6 +157,23 @@ class Model {
       console.log(error);
     }
   }
+
+  async getCountriesMatched(req) {
+    const con = await mysql.createConnection(db_setting);
+    try {
+        let holder = [];
+        const param = req.country
+        for(let i = 0; i < param.length; i++) {
+            let val = req.country[i]
+            let sql = "select countrycode from costOfLivingIndex where name=?"
+            let [rows, fields] = await con.query(sql, [val]);
+            holder.push([val, rows[0].countrycode])
+        }
+        return holder
+    } catch(error) {
+        console.log(error)
+    }
+  }
 }
 
 export default Model;

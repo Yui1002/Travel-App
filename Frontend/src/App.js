@@ -10,21 +10,52 @@ import "./App.css";
 
 const App = () => {
   const [countries, setCountries] = useState([]);
+  const [distanceCountries, setDistanceCountries] = useState([]);
+  const [climateCountries, setClimateCountries] = useState([]);
+  const [budgetCountries, setBudgetCountries] = useState([]);
+  const [activitiesCountries, setActivitiesCountries] = useState([]);
 
   return (
     <React.Fragment>
       <Header />
       <div className="main">
-        <Distance countries={countries} setCountries={setCountries} />
-        <Climate countries={countries} setCountries={setCountries} />
-        <Budget countries={countries} setCountries={setCountries} />
-        <Activities countries={countries} setCountries={setCountries} />
+        <Distance
+          countries={countries}
+          setCountries={setCountries}
+          distanceCountries={distanceCountries}
+          setDistanceCountries={setDistanceCountries}
+        />
+        <Climate
+          countries={countries}
+          setCountries={setCountries}
+          climateCountries={climateCountries}
+          setClimateCountries={setClimateCountries}
+        />
+        <Budget
+          countries={countries}
+          setCountries={setCountries}
+          budgetCountries={budgetCountries}
+          setBudgetCountries={setBudgetCountries}
+        />
+        <Activities
+          countries={countries}
+          setCountries={setCountries}
+          activitiesCountries={activitiesCountries}
+          setActivitiesCountries={setActivitiesCountries}
+        />
+      </div>
+      <div className="priority">
+        <Priority
+          countries={countries}
+          setCountries={setCountries}
+          distanceCountries={distanceCountries}
+          climateCountries={climateCountries}
+          budgetCountries={budgetCountries}
+          activitiesCountries={activitiesCountries}
+        />
       </div>
       <div className="country-list">
         <CountryList countries={countries} />
-      </div>
-      <div className="priority">
-        <Priority />
       </div>
     </React.Fragment>
   );

@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import "./Climate.css";
 
-const Climate = ({ countries, setCountries }) => {
+const Climate = ({
+  countries,
+  setCountries,
+  climateCountries,
+  setClimateCountries,
+}) => {
   const [climate, setClimate] = useState();
 
   const getCountries = async () => {
@@ -16,23 +21,32 @@ const Climate = ({ countries, setCountries }) => {
       body: JSON.stringify(param),
     });
     const data = await response.json();
-
+    return data
+  };
+  
+  const listCountries = (data) => {
     for (let i = 0; i < data.length; i++) {
       setCountries(countries.push([data[i].name, data[i].countrycode]));
     }
+    return countries
+  }
 
-    return countries;
-  };
+  const listClimateCountries = (data) => {
+    for (let i = 0; i < data.length; i++) {
+      setClimateCountries(climateCountries.push([data[i].name, data[i].countrycode]));
+    }
+    return climateCountries
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(`submitted: ${climate}`);
-
-    if(countries.length !== 0) {
-      setCountries(countries.splice(0))
+    if (countries.length !== 0) {
+      setCountries(countries.splice(0));
     }
 
-    setCountries(await getCountries());
+    const data = await getCountries()
+    setCountries(await listCountries(data))
+    setClimateCountries(await listClimateCountries(data))
   };
 
   const handleChange = (e) => {

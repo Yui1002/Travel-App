@@ -24,6 +24,10 @@ class Controller {
   async getFlags(req) {
     return await this.Model.getFlags(req);
   }
+
+  async getCountriesMatched(req) {
+      return await this.Model.getCountriesMatched(req)
+  }
 }
 
 export default Controller;

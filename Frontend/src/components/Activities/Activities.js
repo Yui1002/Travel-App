@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import "./Activities.css";
 
-const Activities = ({ countries, setCountries }) => {
+const Activities = ({
+  countries,
+  setCountries,
+  activitiesCountries,
+  setActivitiesCountries,
+}) => {
   const [activities, setActivities] = useState();
 
   const getCountries = async () => {
@@ -17,25 +22,32 @@ const Activities = ({ countries, setCountries }) => {
       body: JSON.stringify(param),
     });
     const data = await response.json();
+    return data
+  };
 
+  const listCountries = (data) => {
     for (let i = 0; i < data.length; i++) {
-      setCountries(
-        countries.push([data[i].name, data[i].countrycode])
-      );
+      setCountries(countries.push([data[i].name, data[i].countrycode]));
     }
-
     return countries;
+  };
+
+  const listActivitiesCountries = (data) => {
+    for (let i = 0; i < data.length; i++) {
+      setActivitiesCountries(activitiesCountries.push([data[i].name, data[i].countrycode]));
+    }
+    return activitiesCountries;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(`submitted ${activities}`);
-
-    if(countries.length !== 0) {
-      setCountries(countries.splice(0))
+    if (countries.length !== 0) {
+      setCountries(countries.splice(0));
     }
 
-    setCountries(await getCountries());
+    const data = await getCountries()
+    setCountries(await listCountries(data));
+    setActivitiesCountries(await listActivitiesCountries(data))
   };
 
   const handleChange = (e) => {

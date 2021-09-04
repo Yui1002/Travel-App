@@ -1,19 +1,13 @@
 import React, { useState } from "react";
 import "./Budget.css";
 
-const Budget = ({ countries, setCountries }) => {
+const Budget = ({
+  countries,
+  setCountries,
+  budgetCountries,
+  setBudgetCountries,
+}) => {
   const [costs, setCosts] = useState();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(`submitted ${costs}`);
-
-    if(countries.length !== 0) {
-      setCountries(countries.splice(0))
-    }
-
-    setCountries(await getCountries());
-  };
 
   const getCountries = async () => {
     const url = "http://localhost:3000/getCountriesBasedOnBudget";
@@ -28,12 +22,32 @@ const Budget = ({ countries, setCountries }) => {
       body: JSON.stringify(param),
     });
     const data = await response.json();
+    return data;
+  };
 
+  const listCountries = (data) => {
     for (let i = 0; i < data.length; i++) {
       setCountries(countries.push([data[i].name, data[i].countrycode]));
     }
-
     return countries;
+  };
+
+  const listBudgetCountries = (data) => {
+    for (let i = 0; i < data.length; i++) {
+      setBudgetCountries(budgetCountries.push([data[i].name, data[i].countrycode]));
+    }
+    return budgetCountries;
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (countries.length !== 0) {
+      setCountries(countries.splice(0));
+    }
+    // setCountries(await getCountries());
+    const data = await getCountries();
+    setCountries(await listCountries(data))
+    setBudgetCountries(await listBudgetCountries(data))
   };
 
   const handleChange = (e) => {

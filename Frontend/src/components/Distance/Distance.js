@@ -1,7 +1,12 @@
 import React, { useState } from "react";
-import './Distance.css'
+import "./Distance.css";
 
-const Distance = ({countriesDistance, setCountriesDistance}) => {
+const Distance = ({
+  countries,
+  setCountries,
+  distanceCountries,
+  setDistanceCountries,
+}) => {
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
   const [distance, setDistance] = useState();
@@ -31,28 +36,36 @@ const Distance = ({countriesDistance, setCountriesDistance}) => {
       }),
     });
     const data = await response.json();
-    console.log(data);
-
-    for (let i = 0; i < data.length; i++) {
-      setCountriesDistance(setCountriesDistance.push([data[i].name, data[i].countrycode]));
-    }
-
-    return countriesDistance;
+    return data
   };
+
+  const listCountries = (data) => {
+    for (let i = 0; i < data.length; i++) {
+      setCountries(countries.push([data[i].name, data[i].countrycode]));
+    }
+    return countries
+  }
+
+  const listDistanceCountries = (data) => {
+    for (let i = 0; i < data.length; i++) {
+      setDistanceCountries(distanceCountries.push([data[i].name, data[i].countrycode]));
+    }
+    return distanceCountries
+  }
 
   const handleChange = (event) => {
     setDistance(event.target.value);
   };
 
   const handleSubmit = async (event) => {
-    console.log(`submitted: You chose ${distance}km `);
-    
-    if(countriesDistance.length !== 0) {
-      setCountriesDistance(countriesDistance.splice(0))
-    }
     event.preventDefault();
+    if (countries.length !== 0) {
+      setCountries(countries.splice(0));
+    }
 
-    setCountriesDistance(await getCountries());
+    const data = await getCountries();
+    setCountries(await listCountries(data))
+    setDistanceCountries(await listDistanceCountries(data))
   };
 
   return (

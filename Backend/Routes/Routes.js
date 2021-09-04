@@ -31,6 +31,15 @@ class Routes {
       );
       res.send(response);
     });
+
+    app.post("/getCountriesMatched", async (req, res) => {
+      const response = await this.Controller.getCountriesMatched(
+        req.body
+      );
+      res.send(response);
+    });
+
+    
   }
 }
 

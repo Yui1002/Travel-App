@@ -42,6 +42,7 @@ const Climate = ({
     e.preventDefault();
     if (countries.length !== 0) {
       setCountries(countries.splice(0));
+      setClimateCountries(climateCountries.splice(0));
     }
 
     const data = await getCountries()
@@ -77,7 +78,7 @@ const Climate = ({
           </select>
           <input
             type="submit"
-            value="Submit"
+            value="Save"
             className="climate-btn-submit"
           ></input>
         </form>

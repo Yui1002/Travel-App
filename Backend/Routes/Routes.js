@@ -7,6 +7,7 @@ class Routes {
 
   applyRouting(app) {
     app.post("/getCountriesBasedOnDistance", async (req, res) => {
+        console.log(req.body)
       const response = await this.Controller.getCountriesBasedOnDistance(
         req.body
       );

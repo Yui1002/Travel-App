@@ -18,7 +18,7 @@ const App = () => {
   return (
     <React.Fragment>
       <Header />
-      <div className="main">
+      <div className="main-upper">
         <Distance
           countries={countries}
           setCountries={setCountries}
@@ -44,7 +44,7 @@ const App = () => {
           setActivitiesCountries={setActivitiesCountries}
         />
       </div>
-      <div className="priority">
+      <div className="main-middle">
         <Priority
           countries={countries}
           setCountries={setCountries}
@@ -54,7 +54,9 @@ const App = () => {
           activitiesCountries={activitiesCountries}
         />
       </div>
-      <div className="country-list">
+      <div className="main-lower">
+        {countries.length !== 0 ? 
+        <p className="matched-count">{countries.length} countries matched</p> : <p className="matched-count">No countries matched</p>}
         <CountryList countries={countries} />
       </div>
     </React.Fragment>

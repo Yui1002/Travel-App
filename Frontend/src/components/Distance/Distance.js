@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import loading_icon from './loading.gif'
 import "./Distance.css";
 
 const Distance = ({
@@ -10,8 +11,19 @@ const Distance = ({
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
   const [distance, setDistance] = useState();
+  const [icon, setIcon] = useState('hidden')
+  const [form, setForm] = useState('hidden')
+
+  const toggleIcon = () => {
+    setIcon('show')
+  }
+
+  const toggleForm = () => {
+    setForm('show')
+  }
 
   const getUserLocation = () => {
+    toggleIcon()
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition);
     } else {
@@ -22,6 +34,8 @@ const Distance = ({
   const showPosition = (position) => {
     setLatitude(position.coords.latitude.toFixed(1));
     setLongitude(position.coords.longitude.toFixed(1));
+
+    toggleForm()
   };
 
   const getCountries = async () => {
@@ -61,6 +75,7 @@ const Distance = ({
     event.preventDefault();
     if (countries.length !== 0) {
       setCountries(countries.splice(0));
+      setDistanceCountries(distanceCountries.splice(0));
     }
 
     const data = await getCountries();
@@ -77,25 +92,20 @@ const Distance = ({
         </p>
       </div>
       <div className="distance-body">
-        <div>
-          <button
-            className="btn-get-location"
-            onClick={() => getUserLocation()}
-          >
+        <div className="distance-location">
+          <p>Get your location first!</p>
+          <button className="btn-get-location"
+            onClick={() => getUserLocation()}>
             Get Location
           </button>
           {latitude === undefined ? (
-            <p>Get your location first!</p>
-          ) : (
-            <p>Got your location!</p>
-          )}
+            <img src={loading_icon} alt='loading' 
+            className={`icon_${icon}`}/>
+          ) : (<p>Got your location!</p>)}
         </div>
-        <form onSubmit={handleSubmit}>
-          <select
-            name="distance"
-            onChange={handleChange}
-            className="distance-select"
-          >
+        <form onSubmit={handleSubmit} className={`form_${form}`}>
+          <select name="distance" onChange={handleChange}
+            className="distance-select">
             <option value="notSelected">Select</option>
             <option value="3000">〜3000km</option>
             <option value="5000">〜5000km</option>
@@ -104,11 +114,8 @@ const Distance = ({
             <option value="15000">〜15000km</option>
             <option value="more15000">15000km〜</option>
           </select>
-          <input
-            type="submit"
-            value="Submit"
-            className="distance-btn-submit"
-          ></input>
+          <input type="submit" value="Save"
+            className="distance-btn-submit"></input>
         </form>
       </div>
     </div>

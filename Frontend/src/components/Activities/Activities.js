@@ -43,6 +43,7 @@ const Activities = ({
     e.preventDefault();
     if (countries.length !== 0) {
       setCountries(countries.splice(0));
+      setActivitiesCountries(activitiesCountries.splice(0));
     }
 
     const data = await getCountries()
@@ -73,7 +74,7 @@ const Activities = ({
           </select>
           <input
             type="submit"
-            value="Submit"
+            value="Save"
             className="activities-btn-submit"
           ></input>
         </form>

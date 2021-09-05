@@ -1,0 +1,9 @@
+.priority-btn {
+    background-color: rgb(255, 212, 59);
+    border-radius: 20px;
+    font-size: 16px;
+    padding: 6px 16px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+}

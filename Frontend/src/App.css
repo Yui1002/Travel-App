@@ -9,7 +9,7 @@ body {
     background-color: #f0f1f3;
 }
 
-.main {
+.main-upper {
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
 }
@@ -20,4 +20,10 @@ body {
     place-items: center;
     flex-wrap: wrap;
     list-style: none;
+}
+
+.matched-count {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 18px;
 }

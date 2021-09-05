@@ -43,8 +43,9 @@ const Budget = ({
     e.preventDefault();
     if (countries.length !== 0) {
       setCountries(countries.splice(0));
+      setBudgetCountries(budgetCountries.splice(0));
     }
-    // setCountries(await getCountries());
+
     const data = await getCountries();
     setCountries(await listCountries(data))
     setBudgetCountries(await listBudgetCountries(data))
@@ -73,7 +74,7 @@ const Budget = ({
           </select>
           <input
             type="submit"
-            value="Submit"
+            value="Save"
             className="budget-btn-submit"
           ></input>
         </form>

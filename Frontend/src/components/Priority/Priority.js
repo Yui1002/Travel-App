@@ -2,7 +2,6 @@ import React from "react";
 import './Priority.css'
 
 const Priority = ({
-  countries,
   setCountries,
   distanceCountries,
   climateCountries,

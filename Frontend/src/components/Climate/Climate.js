@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Climate.css";
 
 const Climate = ({
@@ -21,67 +21,69 @@ const Climate = ({
       body: JSON.stringify(param),
     });
     const data = await response.json();
-    return data
+    return data;
   };
-  
+
   const listCountries = (data) => {
     for (let i = 0; i < data.length; i++) {
       setCountries(countries.push([data[i].name, data[i].countrycode]));
     }
-    return countries
-  }
+    return countries;
+  };
 
   const listClimateCountries = (data) => {
     for (let i = 0; i < data.length; i++) {
-      setClimateCountries(climateCountries.push([data[i].name, data[i].countrycode]));
+      setClimateCountries(
+        climateCountries.push([data[i].name, data[i].countrycode])
+      );
     }
-    return climateCountries
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (countries.length !== 0) {
-      setCountries(countries.splice(0));
-      setClimateCountries(climateCountries.splice(0));
-    }
-
-    const data = await getCountries()
-    setCountries(await listCountries(data))
-    setClimateCountries(await listClimateCountries(data))
+    return climateCountries;
   };
 
   const handleChange = (e) => {
     setClimate(e.target.value);
   };
 
+  useEffect(async () => {
+    if (countries.length !== 0) {
+      setCountries(countries.splice(0));
+      setClimateCountries(climateCountries.splice(0));
+    }
+
+    if (climate !== undefined) {
+      const data = await getCountries();
+      setCountries(await listCountries(data));
+      setClimateCountries(await listClimateCountries(data));
+    }
+  }, [climate]);
+
   return (
     <div className="climate-container">
       <div>
         <h2 className="climate-title">Climate</h2>
         <p className="climate-subtitle">
-          Select your favorite climate from the options below to get the corresponding country.
+          Select your favorite climate from the options below to get the
+          corresponding country.
         </p>
       </div>
       <div className="climate-body">
-        <form onSubmit={handleSubmit}>
+        <div>
           <select
             name="climate"
             onChange={handleChange}
             className="climate-select"
+            defaultValue={"DEFAULT"}
           >
-            <option disabled selected value>Select</option>
+            <option value="DEFAULT" disabled>
+              Select
+            </option>
             <option value="tropical">Tropical</option>
             <option value="dry">Dry</option>
             <option value="temperate">Temperate</option>
             <option value="continental">Continental</option>
             <option value="polar">Polar</option>
           </select>
-          <input
-            type="submit"
-            value="Save"
-            className="climate-btn-submit"
-          ></input>
-        </form>
+        </div>
       </div>
     </div>
   );

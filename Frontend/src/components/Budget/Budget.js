@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Budget.css";
 
 const Budget = ({
@@ -39,21 +39,22 @@ const Budget = ({
     return budgetCountries;
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleChange = (e) => {
+    setCosts(e.target.value);
+  };
+
+  useEffect(async () => {
     if (countries.length !== 0) {
       setCountries(countries.splice(0));
       setBudgetCountries(budgetCountries.splice(0));
     }
 
-    const data = await getCountries();
-    setCountries(await listCountries(data))
-    setBudgetCountries(await listBudgetCountries(data))
-  };
-
-  const handleChange = (e) => {
-    setCosts(e.target.value);
-  };
+    if(costs !== undefined) {
+      const data = await getCountries();
+      setCountries(await listCountries(data))
+      setBudgetCountries(await listBudgetCountries(data))
+    }
+  }, [costs])
 
   return (
     <div className="budget-container">
@@ -64,20 +65,15 @@ const Budget = ({
         </p>
       </div>
       <div className="budget-body">
-        <form onSubmit={handleSubmit}>
-          <select onChange={handleChange} className="budget-select">
-            <option disabled selected value>Select</option>
+        <div>
+          <select onChange={handleChange} className="budget-select" defaultValue={"DEFAULT"}>
+            <option value="DEFAULT" disabled>Select</option>
             <option value="high">High</option>
             <option value="upper-middle">Upper-middle</option>
             <option value="lower-middle">Lower-middle</option>
             <option value="low">Low</option>
           </select>
-          <input
-            type="submit"
-            value="Save"
-            className="budget-btn-submit"
-          ></input>
-        </form>
+        </div>
       </div>
     </div>
   );

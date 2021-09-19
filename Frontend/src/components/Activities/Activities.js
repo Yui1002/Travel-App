@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Activities.css";
 
 const Activities = ({
@@ -39,21 +39,23 @@ const Activities = ({
     return activitiesCountries;
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleChange = (e) => {
+    setActivities(e.target.value);
+  };
+
+  useEffect(async () => {
     if (countries.length !== 0) {
       setCountries(countries.splice(0));
       setActivitiesCountries(activitiesCountries.splice(0));
     }
 
-    const data = await getCountries()
-    setCountries(await listCountries(data));
-    setActivitiesCountries(await listActivitiesCountries(data))
-  };
+    if(activities !== undefined) {
+      const data = await getCountries()
+      setCountries(await listCountries(data));
+      setActivitiesCountries(await listActivitiesCountries(data))
+    }
+  }, [activities])
 
-  const handleChange = (e) => {
-    setActivities(e.target.value);
-  };
   return (
     <div className="activities-container">
       <div>
@@ -63,7 +65,7 @@ const Activities = ({
         </p>
       </div>
       <div className="activities-body">
-        <form onSubmit={handleSubmit}>
+        <div>
           <select onChange={handleChange} className="activities-select">
             <option disabled selected value>Select</option>
             <option value="safari">Safari</option>
@@ -72,12 +74,7 @@ const Activities = ({
             <option value="winter sports">Winter sports</option>
             <option value="historical sites">Historical sites</option>
           </select>
-          <input
-            type="submit"
-            value="Save"
-            className="activities-btn-submit"
-          ></input>
-        </form>
+        </div>
       </div>
     </div>
   );

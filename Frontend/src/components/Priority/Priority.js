@@ -47,7 +47,7 @@ const Priority = ({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         country: duplicates,
-      }),
+      })
     });
     const data = await response.json();
     return data;

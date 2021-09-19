@@ -1,16 +1,21 @@
 .distance-container {
-  height: 220px;
-  background-color: #fff;
+  height: 270px;
+  background-color: #f0f1f3;
+  opacity: 0.8;
   border-radius: 20px;
   text-align: center;
-  border: 3px solid #20c997;
   box-shadow: 0 0.25em 0 #c3c6d1;
-  display: grid;
-  grid-template-rows: 30% 70%;
+  padding: 4px 20px;
 }
 
-.distance-title-subtitle {
+.distance-title {
+  font-size: 28px;
+  margin: 10px 0;
+}
+
+.distance-subtitle {
   font-size: 13px;
+  margin: 12px 0;
 }
 
 .distance-body {
@@ -19,8 +24,9 @@
   grid-template-rows: 50% 50%;
 }
 
-.distance-result {
-  margin-top: 20px;
+.distance-first-lcoation, .distance-location-result {
+  margin: 10px 0;
+  color: #a30008;
 }
 
 .btn-get-location {
@@ -28,18 +34,21 @@
   width: 140px;
   height: 26px;
   margin-bottom: 10px;
+  transition: all 0.3s ease;
 }
 
-.btn-get-location:checked + .loading_icon{
-  display: block;
-}
-
-.btn-get-location:hover:hover {
+.btn-get-location:hover {
   background-color: #20c997;
+  opacity: 0.8;
+}
+
+.distance-loading-icon {
+  display: block;
+  margin: 0 auto;
 }
 
 .distance-select {
-  width: 140px;
+  width: 200px;
   height: 24px;
 }
 
@@ -49,10 +58,12 @@
   width: 140px;
   height: 24px;
   margin: 10px auto;
+  transition: all 0.3s ease;
 }
 
 .distance-btn-submit:hover {
   background-color: #20c997;
+  opacity: 0.8;
 }
 
 .country-list-container {

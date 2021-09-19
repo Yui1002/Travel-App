@@ -56,10 +56,10 @@ const Climate = ({
 
   return (
     <div className="climate-container">
-      <div className="climate-title">
-        <h2>Climate</h2>
-        <p className="climate-title-subtitle">
-          Get the list of countries by climate
+      <div>
+        <h2 className="climate-title">Climate</h2>
+        <p className="climate-subtitle">
+          Select your favorite climate from the options below to get the corresponding country.
         </p>
       </div>
       <div className="climate-body">
@@ -67,9 +67,9 @@ const Climate = ({
           <select
             name="climate"
             onChange={handleChange}
-            className="distance-select"
+            className="climate-select"
           >
-            <option value="select">Select</option>
+            <option disabled selected value>Select</option>
             <option value="tropical">Tropical</option>
             <option value="dry">Dry</option>
             <option value="temperate">Temperate</option>

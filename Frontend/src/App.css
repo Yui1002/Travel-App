@@ -5,13 +5,19 @@
 
 body {
     margin: 30px 20px;
-    font-family: 'Hina Mincho', serif;
-    background-color: #f0f1f3;
+    font-family: 'Roboto', sans-serif;
+    background-image: url('./beach.jpeg');
+    background-size: cover;
 }
 
 .main-upper {
     display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 10px;
+}
+
+.main-middle {
+    margin: 50px 0 20px;
 }
 
 .app-list-container {
@@ -25,5 +31,6 @@ body {
 .matched-count {
     text-align: center;
     margin-top: 10px;
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: bold;
 }

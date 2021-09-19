@@ -11,19 +11,11 @@ const Distance = ({
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
   const [distance, setDistance] = useState();
-  const [icon, setIcon] = useState('hidden')
-  const [form, setForm] = useState('hidden')
-
-  const toggleIcon = () => {
-    setIcon('show')
-  }
-
-  const toggleForm = () => {
-    setForm('show')
-  }
+  const [loading, setLoading] = useState(false);
 
   const getUserLocation = () => {
-    toggleIcon()
+    setLoading(true)
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition);
     } else {
@@ -35,7 +27,7 @@ const Distance = ({
     setLatitude(position.coords.latitude.toFixed(1));
     setLongitude(position.coords.longitude.toFixed(1));
 
-    toggleForm()
+    setLoading(false)
   };
 
   const getCountries = async () => {
@@ -85,28 +77,31 @@ const Distance = ({
 
   return (
     <div className="distance-container">
-      <div className="distance-title">
-        <h2>Distance</h2>
-        <p className="distance-title-subtitle">
-          Get the list of countries by distance
-        </p>
+      <div>
+        <h2 className="distance-title">Distance</h2>
+        <p className="distance-subtitle">Select your favorite distance from the options below to get the corresponding country.</p>
       </div>
+      
       <div className="distance-body">
         <div className="distance-location">
-          <p>Get your location first!</p>
-          <button className="btn-get-location"
-            onClick={() => getUserLocation()}>
-            Get Location
-          </button>
-          {latitude === undefined ? (
-            <img src={loading_icon} alt='loading' 
-            className={`icon_${icon}`}/>
-          ) : (<p>Got your location!</p>)}
+          {!loading && latitude === undefined && longitude === undefined && <p className="distance-first-lcoation">Get your location first!</p>} 
+          <button className="btn-get-location" onClick={() => getUserLocation()}>Get Location</button>
+          {loading && (
+            <div className="distance-loading-icon">
+              <img src={loading_icon} alt='loading' />
+            </div>
+          )}
+          {!loading && latitude !== undefined && longitude !== undefined && 
+            <p className="distance-location-result">Got your location!<br/><p className="distance-location-result">Select your favorite distance below</p></p>
+          }
         </div>
-        <form onSubmit={handleSubmit} className={`form_${form}`}>
+
+        {latitude !== undefined && longitude !== undefined && 
+        (
+        <form onSubmit={handleSubmit}>
           <select name="distance" onChange={handleChange}
             className="distance-select">
-            <option value="notSelected">Select</option>
+            <option disabled selected value>Select</option>
             <option value="3000">〜3000km</option>
             <option value="5000">〜5000km</option>
             <option value="7000">〜7000km</option>
@@ -114,9 +109,9 @@ const Distance = ({
             <option value="15000">〜15000km</option>
             <option value="more15000">15000km〜</option>
           </select>
-          <input type="submit" value="Save"
-            className="distance-btn-submit"></input>
+          <input type="submit" value="Save" className="distance-btn-submit"></input>
         </form>
+        )}
       </div>
     </div>
   );

@@ -56,21 +56,21 @@ const Activities = ({
   };
   return (
     <div className="activities-container">
-      <div className="acitivities-title">
-        <h2>Activities</h2>
-        <p className="activities-title-subtitle">
-          Get the list of countries based on activities
+      <div>
+        <h2 className="acitivities-title">Activities</h2>
+        <p className="activities-subtitle">
+          Select your favorite activity from the options below to get the corresponding country.
         </p>
       </div>
       <div className="activities-body">
         <form onSubmit={handleSubmit}>
           <select onChange={handleChange} className="activities-select">
-            <option value="select">Select</option>
-            <option value="Safari">Safari</option>
-            <option value="Mountain sports">Mountain sports</option>
-            <option value="Water sports">Water sports</option>
-            <option value="Winter sports">Winter sports</option>
-            <option value="Historical sites">Historical sites</option>
+            <option disabled selected value>Select</option>
+            <option value="safari">Safari</option>
+            <option value="mountain sports">Mountain sports</option>
+            <option value="water sports">Water sports</option>
+            <option value="winter sports">Winter sports</option>
+            <option value="historical sites">Historical sites</option>
           </select>
           <input
             type="submit"

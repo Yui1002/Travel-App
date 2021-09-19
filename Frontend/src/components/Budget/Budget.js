@@ -57,20 +57,20 @@ const Budget = ({
 
   return (
     <div className="budget-container">
-      <div className="budget-title">
-        <h2 budget-title-subtitle>Budget</h2>
-        <p className="budget-title-subtitle">
-          Get the list of countries by budget. This is based on the cost of
-          living index
+      <div>
+        <h2 className="budget-title">Budget</h2>
+        <p className="budget-subtitle">
+          Select your favorite budget from the options below to get the corresponding country. This is based on the cost of living index
         </p>
       </div>
       <div className="budget-body">
         <form onSubmit={handleSubmit}>
           <select onChange={handleChange} className="budget-select">
-            <option value="select">Select</option>
-            <option value="expensive">Expensive</option>
-            <option value="middle">Middle</option>
-            <option value="cheap">Cheap</option>
+            <option disabled selected value>Select</option>
+            <option value="high">High</option>
+            <option value="upper-middle">Upper-middle</option>
+            <option value="lower-middle">Lower-middle</option>
+            <option value="low">Low</option>
           </select>
           <input
             type="submit"

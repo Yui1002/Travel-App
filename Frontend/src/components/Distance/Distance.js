@@ -3,14 +3,16 @@ import loading_icon from "./loading.gif";
 import "./Distance.css";
 
 const Distance = ({
+  latitude,
+  longitude,
+  setLatitude,
+  setLongitude,
+  distance,
+  setDistance,
   countries,
   setCountries,
-  distanceCountries,
-  setDistanceCountries,
 }) => {
-  const [latitude, setLatitude] = useState();
-  const [longitude, setLongitude] = useState();
-  const [distance, setDistance] = useState();
+
   const [loading, setLoading] = useState(false);
 
   const getUserLocation = () => {
@@ -36,8 +38,8 @@ const Distance = ({
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        lat: latitude,
-        lon: longitude,
+        latitude: latitude,
+        longitude: longitude,
         distance: distance,
       }),
     });
@@ -52,15 +54,6 @@ const Distance = ({
     return countries;
   };
 
-  const listDistanceCountries = (data) => {
-    for (let i = 0; i < data.length; i++) {
-      setDistanceCountries(
-        distanceCountries.push([data[i].name, data[i].countrycode])
-      );
-    }
-    return distanceCountries;
-  };
-
   const handleChange = (event) => {
     setDistance(event.target.value);
   };
@@ -68,13 +61,11 @@ const Distance = ({
   useEffect(async () => {
     if (countries.length !== 0) {
       setCountries(countries.splice(0));
-      setDistanceCountries(distanceCountries.splice(0));
     }
 
     if (distance !== undefined) {
       const data = await getCountries();
       setCountries(await listCountries(data));
-      setDistanceCountries(await listDistanceCountries(data));
     }
   }, [distance]);
 

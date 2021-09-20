@@ -2,16 +2,15 @@ import React, { useState, useEffect } from "react";
 import "./Activities.css";
 
 const Activities = ({
+  activity,
+  setActivity,
   countries,
   setCountries,
-  activitiesCountries,
-  setActivitiesCountries,
 }) => {
-  const [activities, setActivities] = useState();
 
   const getCountries = async () => {
     const url = "http://localhost:3000/getCountriesBasedOnActivities";
-    const param = { val: activities };
+    const param = { val: activity };
 
     const response = await fetch(url, {
       method: "POST",
@@ -32,29 +31,20 @@ const Activities = ({
     return countries;
   };
 
-  const listActivitiesCountries = (data) => {
-    for (let i = 0; i < data.length; i++) {
-      setActivitiesCountries(activitiesCountries.push([data[i].name, data[i].countrycode]));
-    }
-    return activitiesCountries;
-  };
-
   const handleChange = (e) => {
-    setActivities(e.target.value);
+    setActivity(e.target.value);
   };
 
   useEffect(async () => {
     if (countries.length !== 0) {
       setCountries(countries.splice(0));
-      setActivitiesCountries(activitiesCountries.splice(0));
     }
 
-    if(activities !== undefined) {
+    if(activity !== undefined) {
       const data = await getCountries()
       setCountries(await listCountries(data));
-      setActivitiesCountries(await listActivitiesCountries(data))
     }
-  }, [activities])
+  }, [activity])
 
   return (
     <div className="activities-container">

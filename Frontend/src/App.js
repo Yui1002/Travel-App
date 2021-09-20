@@ -10,48 +10,56 @@ import "./App.css";
 
 const App = () => {
   const [countries, setCountries] = useState([]);
-  const [distanceCountries, setDistanceCountries] = useState([]);
-  const [climateCountries, setClimateCountries] = useState([]);
-  const [budgetCountries, setBudgetCountries] = useState([]);
-  const [activitiesCountries, setActivitiesCountries] = useState([]);
+  const [latitude, setLatitude] = useState();
+  const [longitude, setLongitude] = useState();
+  const [distance, setDistance] = useState()
+  const [climate, setClimate] = useState();
+  const [budget, setBudget] = useState();
+  const [activity, setActivity] = useState()
 
   return (
     <React.Fragment>
       <Header />
       <div className="main-upper">
         <Distance
+          latitude={latitude}
+          longitude={longitude}
+          setLatitude={setLatitude}
+          setLongitude={setLongitude}
+          distance={distance}
+          setDistance={setDistance}
           countries={countries}
           setCountries={setCountries}
-          distanceCountries={distanceCountries}
-          setDistanceCountries={setDistanceCountries}
         />
         <Climate
+          climate={climate}
+          setClimate={setClimate}
           countries={countries}
           setCountries={setCountries}
-          climateCountries={climateCountries}
-          setClimateCountries={setClimateCountries}
         />
         <Budget
+          budget={budget}
+          setBudget={setBudget}
           countries={countries}
           setCountries={setCountries}
-          budgetCountries={budgetCountries}
-          setBudgetCountries={setBudgetCountries}
         />
         <Activities
+          activity={activity}
+          setActivity={setActivity}
           countries={countries}
           setCountries={setCountries}
-          activitiesCountries={activitiesCountries}
-          setActivitiesCountries={setActivitiesCountries}
         />
       </div>
       <div className="main-middle">
         <Priority
+          latitude={latitude}
+          longitude={longitude}
+          distance={distance}
+          climate={climate}
+          budget={budget}
+          activity={activity}
           countries={countries}
           setCountries={setCountries}
-          distanceCountries={distanceCountries}
-          climateCountries={climateCountries}
-          budgetCountries={budgetCountries}
-          activitiesCountries={activitiesCountries}
         />
       </div>
       <div className="main-lower">

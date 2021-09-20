@@ -2,16 +2,15 @@ import React, { useEffect, useState } from "react";
 import "./Budget.css";
 
 const Budget = ({
+  budget,
+  setBudget,
   countries,
   setCountries,
-  budgetCountries,
-  setBudgetCountries,
 }) => {
-  const [costs, setCosts] = useState();
 
   const getCountries = async () => {
     const url = "http://localhost:3000/getCountriesBasedOnBudget";
-    const param = { val: costs };
+    const param = { val: budget };
 
     const response = await fetch(url, {
       method: "POST",
@@ -32,29 +31,20 @@ const Budget = ({
     return countries;
   };
 
-  const listBudgetCountries = (data) => {
-    for (let i = 0; i < data.length; i++) {
-      setBudgetCountries(budgetCountries.push([data[i].name, data[i].countrycode]));
-    }
-    return budgetCountries;
-  }
-
   const handleChange = (e) => {
-    setCosts(e.target.value);
+    setBudget(e.target.value);
   };
 
   useEffect(async () => {
     if (countries.length !== 0) {
       setCountries(countries.splice(0));
-      setBudgetCountries(budgetCountries.splice(0));
     }
 
-    if(costs !== undefined) {
+    if(budget !== undefined) {
       const data = await getCountries();
       setCountries(await listCountries(data))
-      setBudgetCountries(await listBudgetCountries(data))
     }
-  }, [costs])
+  }, [budget])
 
   return (
     <div className="budget-container">

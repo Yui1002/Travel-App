@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import "./Climate.css";
 
 const Climate = ({
+  climate,
+  setClimate,
   countries,
   setCountries,
-  climateCountries,
-  setClimateCountries,
 }) => {
-  const [climate, setClimate] = useState();
 
   const getCountries = async () => {
     const url = "http://localhost:3000/getCountriesBasedOnClimate";
@@ -31,15 +30,6 @@ const Climate = ({
     return countries;
   };
 
-  const listClimateCountries = (data) => {
-    for (let i = 0; i < data.length; i++) {
-      setClimateCountries(
-        climateCountries.push([data[i].name, data[i].countrycode])
-      );
-    }
-    return climateCountries;
-  };
-
   const handleChange = (e) => {
     setClimate(e.target.value);
   };
@@ -47,13 +37,11 @@ const Climate = ({
   useEffect(async () => {
     if (countries.length !== 0) {
       setCountries(countries.splice(0));
-      setClimateCountries(climateCountries.splice(0));
     }
 
     if (climate !== undefined) {
       const data = await getCountries();
       setCountries(await listCountries(data));
-      setClimateCountries(await listClimateCountries(data));
     }
   }, [climate]);
 

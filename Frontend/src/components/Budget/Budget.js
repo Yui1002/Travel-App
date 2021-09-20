@@ -10,15 +10,13 @@ const Budget = ({
 
   const getCountries = async () => {
     const url = "http://localhost:3000/getCountriesBasedOnBudget";
-    const param = { val: budget };
-
     const response = await fetch(url, {
       method: "POST",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(param),
+      body: JSON.stringify({budget: budget}),
     });
     const data = await response.json();
     return data;

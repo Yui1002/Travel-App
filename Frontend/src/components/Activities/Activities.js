@@ -10,15 +10,13 @@ const Activities = ({
 
   const getCountries = async () => {
     const url = "http://localhost:3000/getCountriesBasedOnActivities";
-    const param = { val: activity };
-
     const response = await fetch(url, {
       method: "POST",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(param),
+      body: JSON.stringify({activity: activity}),
     });
     const data = await response.json();
     return data

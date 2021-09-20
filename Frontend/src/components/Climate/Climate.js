@@ -10,14 +10,13 @@ const Climate = ({
 
   const getCountries = async () => {
     const url = "http://localhost:3000/getCountriesBasedOnClimate";
-    const param = { val: climate };
     const response = await fetch(url, {
       method: "POST",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(param),
+      body: JSON.stringify({climate: climate}),
     });
     const data = await response.json();
     return data;

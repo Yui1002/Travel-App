@@ -6,3 +6,11 @@
     display: block;
     margin: 0 auto;
 }
+
+.error {
+    text-align: center;
+    font-size: 18px;
+    color: #a30008;
+    font-weight: bold;
+    margin-top: 14px;
+}

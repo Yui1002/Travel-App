@@ -58,16 +58,19 @@ const Distance = ({
     setDistance(event.target.value);
   };
 
-  useEffect(async () => {
-    if (countries.length !== 0) {
+  useEffect(() => {
+    async function fetchData() {
+      if (countries.length !== 0) {
       setCountries(countries.splice(0));
-    }
+      }
 
-    if (distance !== undefined) {
-      const data = await getCountries();
+      if(distance !== undefined) {
+      const data = await getCountries()
       setCountries(await listCountries(data));
+      }
     }
-  }, [distance]);
+    fetchData()
+  }, [distance])
 
   return (
     <div className="distance-container">

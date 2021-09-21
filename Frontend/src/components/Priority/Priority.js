@@ -55,7 +55,7 @@ const Priority = ({
       <button className="priority-btn" onClick={handleClick}>
         Get the countries that matches all your choices
       </button>
-      {isEmpty && <p>Please select all options</p>}
+      {isEmpty && <p className="error">Please select all options</p>}
     </>
   );
 };

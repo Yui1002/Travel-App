@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./Climate.css";
 
 const Climate = ({
@@ -33,16 +33,19 @@ const Climate = ({
     setClimate(e.target.value);
   };
 
-  useEffect(async () => {
-    if (countries.length !== 0) {
+  useEffect(() => {
+    async function fetchData() {
+      if (countries.length !== 0) {
       setCountries(countries.splice(0));
-    }
+      }
 
-    if (climate !== undefined) {
-      const data = await getCountries();
+      if(climate !== undefined) {
+      const data = await getCountries()
       setCountries(await listCountries(data));
+      }
     }
-  }, [climate]);
+    fetchData()
+  }, [climate])
 
   return (
     <div className="climate-container">

@@ -1,36 +1,21 @@
 * {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 body {
-    margin: 30px 20px;
-    font-family: 'Roboto', sans-serif;
-    background-image: url('./beach.jpeg');
-    background-size: cover;
+  margin: 30px 20px;
+  font-family: "Roboto", sans-serif;
+  background-image: url("./beach.jpeg");
+  background-size: cover;
 }
 
 .main-upper {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    column-gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 10px;
 }
 
 .main-middle {
-    margin: 50px 0 20px;
-}
-
-.app-list-container {
-    display: grid;
-    grid-template-columns: 20% 20% 20% 20% 20%;
-    place-items: center;
-    flex-wrap: wrap;
-    list-style: none;
-}
-
-.matched-count {
-    text-align: center;
-    margin-top: 10px;
-    font-size: 20px;
-    font-weight: bold;
+  margin: 50px 0 20px;
 }

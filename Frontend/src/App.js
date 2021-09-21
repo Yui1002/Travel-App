@@ -12,10 +12,10 @@ const App = () => {
   const [countries, setCountries] = useState([]);
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
-  const [distance, setDistance] = useState()
+  const [distance, setDistance] = useState();
   const [climate, setClimate] = useState();
   const [budget, setBudget] = useState();
-  const [activity, setActivity] = useState()
+  const [activity, setActivity] = useState();
 
   return (
     <React.Fragment>
@@ -63,8 +63,6 @@ const App = () => {
         />
       </div>
       <div className="main-lower">
-        {countries.length !== 0 ? 
-        <p className="matched-count">{countries.length} countries matched</p> : <p className="matched-count">No countries matched</p>}
         <CountryList countries={countries} />
       </div>
     </React.Fragment>

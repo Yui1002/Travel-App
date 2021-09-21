@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./Activities.css";
 
 const Activities = ({
@@ -33,15 +33,18 @@ const Activities = ({
     setActivity(e.target.value);
   };
 
-  useEffect(async () => {
-    if (countries.length !== 0) {
+  useEffect(() => {
+    async function fetchData() {
+      if (countries.length !== 0) {
       setCountries(countries.splice(0));
-    }
+      }
 
-    if(activity !== undefined) {
+      if(activity !== undefined) {
       const data = await getCountries()
       setCountries(await listCountries(data));
+      }
     }
+    fetchData()
   }, [activity])
 
   return (

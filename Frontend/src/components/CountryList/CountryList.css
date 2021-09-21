@@ -1,0 +1,15 @@
+.app-list-container {
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    place-items: center;
+    flex-wrap: wrap;
+    list-style: none;
+    margin-top: 60px;
+}
+
+.matched-count {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
